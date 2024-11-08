@@ -23,10 +23,10 @@ public class ProductosApplication extends Application {
      */
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(ProductosApplication.class.getResource("/fxml/Productos.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(ProductosApplication.class.getResource("fxml/Productos.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Productos");
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/carrito.png")));
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("images/carrito.png")));
         stage.setScene(scene);
         stage.show();
     }
