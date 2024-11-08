@@ -1,5 +1,6 @@
 package com.alesandro.productos.controller;
 
+import com.alesandro.productos.ProductosApplication;
 import com.alesandro.productos.dao.DaoProducto;
 import com.alesandro.productos.model.Producto;
 import javafx.beans.property.ReadOnlyBooleanWrapper;
@@ -16,7 +17,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -112,7 +115,7 @@ public class ProductosController implements Initializable {
             public void changed(ObservableValue<? extends Producto> observableValue, Producto oldValue, Producto newValue) {
                 if (newValue != null) {
                     txtCodigo.setText(newValue.getCodigo());
-                    txtCodigo.setEditable(false);
+                    txtCodigo.setDisable(true);
                     txtNombre.setText(newValue.getNombre());
                     txtPrecio.setText(newValue.getPrecio() + "");
                     cbDisponible.setSelected(newValue.isDisponible());
@@ -138,6 +141,7 @@ public class ProductosController implements Initializable {
      * Función que carga los productos de la base de datos a la tabla
      */
     public void cargarTabla() {
+        tabla.getItems().clear();
         tabla.setItems(DaoProducto.cargarListado());
     }
 
@@ -155,16 +159,21 @@ public class ProductosController implements Initializable {
                 alerta("Ese producto no tiene imagen");
             } else {
                 try {
+                    Window ventana = tabla.getScene().getWindow();
                     InputStream image = producto.getImagen().getBinaryStream();
                     VBox root = new VBox();
                     ImageView imagen = new ImageView(new Image(image));
+                    imagen.setFitWidth(300);
+                    imagen.setFitHeight(300);
                     root.getChildren().add(imagen);
                     Scene scene = new Scene(root, 300, 300);
                     Stage stage = new Stage();
                     stage.setResizable(false);
                     stage.setScene(scene);
                     stage.setTitle("Imagen");
-                    stage.getIcons().add(new Image(getClass().getResourceAsStream("images/carrito.png")));
+                    stage.initModality(Modality.APPLICATION_MODAL);
+                    stage.initOwner(ventana);
+                    stage.getIcons().add(new Image(ProductosApplication.class.getResourceAsStream("images/carrito.png")));
                     stage.showAndWait();
                 } catch (SQLException e) {
                     alerta("No se ha podido cargar la imagen");
@@ -290,7 +299,15 @@ public class ProductosController implements Initializable {
      */
     @FXML
     void acerca(ActionEvent event) {
-        //
+        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+        alerta.setHeaderText(null);
+        alerta.setTitle("INFO");
+        String info = "Gestión de productos 1.0\n";
+        info += "Autor: Alesandro Quirós Gobbato";
+        alerta.setContentText(info);
+        Stage alertaStage = (Stage) alerta.getDialogPane().getScene().getWindow();
+        alertaStage.getIcons().add(new Image(ProductosApplication.class.getResourceAsStream("images/carrito.png")));
+        alerta.showAndWait();
     }
 
     /**
@@ -302,7 +319,7 @@ public class ProductosController implements Initializable {
     void limpiar(ActionEvent event) {
         imagenProducto = null;
         txtCodigo.setText("");
-        txtCodigo.setEditable(true);
+        txtCodigo.setDisable(false);
         txtNombre.setText("");
         txtPrecio.setText("");
         cbDisponible.setSelected(false);

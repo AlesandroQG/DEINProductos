@@ -5,3 +5,7 @@
 .button, .text-field {
     -fx-background-radius: 180px;
 }
+
+.button {
+    -fx-background-color: white;
+}

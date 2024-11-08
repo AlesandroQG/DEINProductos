@@ -67,7 +67,7 @@
       <FlowPane alignment="CENTER" columnHalignment="CENTER" hgap="50.0">
          <children>
             <Button fx:id="btnCrear" defaultButton="true" mnemonicParsing="false" onAction="#crear" text="Crear" />
-            <Button fx:id="btnActualizar" disable="true" mnemonicParsing="false" onAction="#actualizar" text="Actualizar" />
+            <Button fx:id="btnActualizar" defaultButton="true" disable="true" mnemonicParsing="false" onAction="#actualizar" text="Actualizar" />
             <Button cancelButton="true" mnemonicParsing="false" onAction="#limpiar" text="Limpiar" />
          </children>
          <VBox.margin>

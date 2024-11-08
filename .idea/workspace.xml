@@ -5,11 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2ea1c17a-7c08-4047-8f9b-d606506ac4c0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/alesandro/productos/sql/productos.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/alesandro/productos/controller/ProductosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/alesandro/productos/controller/ProductosController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/alesandro/productos/dao/DaoProducto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/alesandro/productos/dao/DaoProducto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/alesandro/productos/fxml/Productos.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/alesandro/productos/fxml/Productos.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/alesandro/productos/style/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/alesandro/productos/style/style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
