@@ -9,7 +9,7 @@ Esta es una aplicación hecha con JavaFX para la gestión de productos.
 La estructura del proyecto es la siguiente:
 - `src > main`:
     - `java > com.alesandro.productos`:
-        - `OlimpiadasApplicacion.java`: Clase que lanza la aplicación
+        - `ProductosApplicacion.java`: Clase que lanza la aplicación
         - `controller`:
             - `ProductosController.java`: Clase que controla los eventos de la ventana principal de la aplicación
         - `dao`:
