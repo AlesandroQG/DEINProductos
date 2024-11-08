@@ -127,6 +127,8 @@ public class ProductosController implements Initializable {
                         } catch (SQLException e) {
                             throw new RuntimeException(e);
                         }
+                    } else {
+                        imagen.setImage(null);
                     }
                     btnCrear.setDisable(true);
                     btnActualizar.setDisable(false);
