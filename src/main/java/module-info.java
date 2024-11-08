@@ -7,5 +7,8 @@ module com.alesandro.productos {
     opens com.alesandro.productos to javafx.fxml;
     exports com.alesandro.productos;
     exports com.alesandro.productos.controller;
+    exports com.alesandro.productos.model;
+    exports com.alesandro.productos.dao;
+    exports com.alesandro.productos.db;
     opens com.alesandro.productos.controller to javafx.fxml;
 }

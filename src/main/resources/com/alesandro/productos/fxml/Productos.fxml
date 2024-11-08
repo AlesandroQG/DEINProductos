@@ -54,7 +54,7 @@
                <children>
                    <Button mnemonicParsing="false" onAction="#seleccionarImagen" text="Seleccionar imagen">
                      <graphic>
-                        <FontIcon iconLiteral="far-file-image" iconSize="64" iconCode="black" />
+                        <FontIcon iconColor="black" iconLiteral="fas-file-image" iconSize="24" />
                      </graphic></Button>
                   <ImageView fx:id="imagen" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
                </children>
@@ -66,9 +66,9 @@
       </GridPane>
       <FlowPane alignment="CENTER" columnHalignment="CENTER" hgap="50.0">
          <children>
-            <Button fx:id="btnCrear" mnemonicParsing="false" onAction="#crear" text="Crear" />
-            <Button fx:id="btnActualizar" mnemonicParsing="false" onAction="#actualizar" text="Actualizar" />
-            <Button mnemonicParsing="false" onAction="#limpiar" text="Limpiar" />
+            <Button fx:id="btnCrear" defaultButton="true" mnemonicParsing="false" onAction="#crear" text="Crear" />
+            <Button fx:id="btnActualizar" disable="true" mnemonicParsing="false" onAction="#actualizar" text="Actualizar" />
+            <Button cancelButton="true" mnemonicParsing="false" onAction="#limpiar" text="Limpiar" />
          </children>
          <VBox.margin>
             <Insets bottom="10.0" />
@@ -79,7 +79,7 @@
           <TableColumn fx:id="colCodigo" prefWidth="149.0" text="CÓDIGO" />
           <TableColumn fx:id="colNombre" prefWidth="164.0" text="NOMBRE" />
             <TableColumn fx:id="colPrecio" prefWidth="119.0" text="PRECIO" />
-            <TableColumn fx:id="colDisponible" prefWidth="167.0" text="DISPONIBLE" />
+            <TableColumn fx:id="colDisponible" prefWidth="139.0" text="DISPONIBLE" />
         </columns>
          <VBox.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" />

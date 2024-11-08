@@ -27,6 +27,7 @@ public class ProductosApplication extends Application {
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Productos");
         stage.getIcons().add(new Image(getClass().getResourceAsStream("images/carrito.png")));
+        stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
     }

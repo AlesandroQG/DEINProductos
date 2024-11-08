@@ -25,7 +25,7 @@ public class DaoProducto {
         Producto producto = null;
         try {
             connection = new DBConnect();
-            String consulta = "SELECT codigo,nombre,precio,disponible,imagen FROM Producto WHERE codigo = ?";
+            String consulta = "SELECT codigo,nombre,precio,disponible,imagen FROM productos WHERE codigo = ?";
             PreparedStatement pstmt = connection.getConnection().prepareStatement(consulta);
             pstmt.setString(1, codigo);
             ResultSet rs = pstmt.executeQuery();
@@ -84,7 +84,7 @@ public class DaoProducto {
         ObservableList<Producto> productos = FXCollections.observableArrayList();
         try{
             connection = new DBConnect();
-            String consulta = "SELECT codigo,nombre,precio,disponible,imagen FROM Producto";
+            String consulta = "SELECT codigo,nombre,precio,disponible,imagen FROM productos";
             PreparedStatement pstmt = connection.getConnection().prepareStatement(consulta);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
@@ -115,7 +115,7 @@ public class DaoProducto {
         PreparedStatement pstmt;
         try {
             connection = new DBConnect();
-            String consulta = "UPDATE Producto SET nombre = ?,precio = ?,disponible = ?,imagen = ? WHERE codigo = ?";
+            String consulta = "UPDATE productos SET nombre = ?,precio = ?,disponible = ?,imagen = ? WHERE codigo = ?";
             pstmt = connection.getConnection().prepareStatement(consulta);
             pstmt.setString(1, producto.getNombre());
             pstmt.setFloat(2, producto.getPrecio());
@@ -144,7 +144,7 @@ public class DaoProducto {
         PreparedStatement pstmt;
         try {
             connection = new DBConnect();
-            String consulta = "INSERT INTO Producto (codigo,nombre,precio,disponible,imagen) VALUES (?,?,?,?,?) ";
+            String consulta = "INSERT INTO productos (codigo,nombre,precio,disponible,imagen) VALUES (?,?,?,?,?) ";
             pstmt = connection.getConnection().prepareStatement(consulta, PreparedStatement.RETURN_GENERATED_KEYS);
             pstmt.setString(1, producto.getCodigo());
             pstmt.setString(2, producto.getNombre());
@@ -182,7 +182,7 @@ public class DaoProducto {
         PreparedStatement pstmt;
         try {
             connection = new DBConnect();
-            String consulta = "DELETE FROM Producto WHERE codigo = ?";
+            String consulta = "DELETE FROM productos WHERE codigo = ?";
             pstmt = connection.getConnection().prepareStatement(consulta);
             pstmt.setString(1, producto.getCodigo());
             int filasAfectadas = pstmt.executeUpdate();

@@ -19,7 +19,6 @@ La estructura del proyecto es la siguiente:
         - `model`:
             - `Producto.java`: Clase que define el objeto Producto
     - `resources > com.alesandro.productos`:
-        - `fonts`: Carpeta que contiene las fuentes de la aplicación
         - `fxml`:
             - `Productos.fxml`: Ventana principal de la aplicación
         - `images`: Carpeta que contiene las imágenes de la aplicación
