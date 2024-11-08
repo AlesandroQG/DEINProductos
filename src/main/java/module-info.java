@@ -1,6 +1,7 @@
 module com.alesandro.productos {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.sql;
 
 
     opens com.alesandro.productos to javafx.fxml;

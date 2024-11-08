@@ -5,19 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2ea1c17a-7c08-4047-8f9b-d606506ac4c0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mvnw" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mvnw.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/alesandro/productos/ProductosApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/alesandro/productos/controller/HelloController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/alesandro/productos/fxml/hello-view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/configuration.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/alesandro/productos/db/DBConnect.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/alesandro/productos/images/bollos.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/alesandro/productos/images/carrito.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/alesandro/productos/images/chorizo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/alesandro/productos/images/jamon.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/alesandro/productos/images/limones.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/alesandro/productos/images/naranjas.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/alesandro/productos/images/platanos.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/alesandro/productos/ProductosApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/alesandro/productos/ProductosApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/alesandro/productos/controller/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/alesandro/productos/controller/ProductosController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/alesandro/productos/fxml/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/alesandro/productos/fxml/hello-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,7 +41,9 @@
   "associatedIndex": 6
 }]]></component>
   <component name="ProjectId" id="2oYhoxsugWtD0CLBCxvKd89vCqR" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -46,16 +51,25 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/alesandroquirosgobbato/IdeaProjects/Productos",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0"
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/com/alesandro/productos" />
       <recent name="$PROJECT_DIR$/src/main/resources/com/alesandro/productos/fxml" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.alesandro.productos.db" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
