@@ -142,6 +142,7 @@ public class ProductosController implements Initializable {
      */
     public void cargarTabla() {
         tabla.getItems().clear();
+        limpiar(null);
         tabla.setItems(DaoProducto.cargarListado());
     }
 
@@ -176,8 +177,8 @@ public class ProductosController implements Initializable {
                     stage.getIcons().add(new Image(ProductosApplication.class.getResourceAsStream("images/carrito.png")));
                     stage.showAndWait();
                 } catch (SQLException e) {
+                    //e.printStackTrace();
                     alerta("No se ha podido cargar la imagen");
-                    throw new RuntimeException(e);
                 }
             }
         }
@@ -204,7 +205,7 @@ public class ProductosController implements Initializable {
                     confirmacion("Producto eliminado correctamente");
                     cargarTabla();
                 } else {
-                    alerta("No se ha podido eliminar ese producto");
+                    alerta("No se ha podido eliminar ese producto de la base de datos");
                 }
             }
         }
@@ -230,7 +231,7 @@ public class ProductosController implements Initializable {
                 confirmacion("Producto actualizado correctamente");
                 cargarTabla();
             } else {
-                alerta("No se ha podido actualizar ese producto");
+                alerta("No se ha podido actualizar ese producto en la base de datos");
             }
         }
     }
@@ -244,6 +245,8 @@ public class ProductosController implements Initializable {
     void crear(ActionEvent event) {
         if (txtCodigo.getText().isEmpty()) {
             alerta("El código no puede estar vacío");
+        } else if (txtCodigo.getText().length() != 5) {
+            alerta("El código debe tener 5 caracteres");
         } else {
             Producto p = DaoProducto.getProducto(txtCodigo.getText());
             if (p != null) {
@@ -263,7 +266,7 @@ public class ProductosController implements Initializable {
                         confirmacion("Producto creado correctamente");
                         cargarTabla();
                     } else {
-                        alerta("No se ha podido crear ese producto");
+                        alerta("No se ha podido crear ese producto en la base de datos");
                     }
                 }
             }
@@ -286,7 +289,7 @@ public class ProductosController implements Initializable {
             try {
                 Float.parseFloat(txtPrecio.getText());
             } catch (NumberFormatException e) {
-                error += "El precio debe ser un número\n";
+                error += "El precio debe ser un número decimal\n";
             }
         }
         return error;
@@ -356,8 +359,8 @@ public class ProductosController implements Initializable {
             //e.printStackTrace();
             System.out.println("Imagen no seleccionada");
         } catch (SQLException e) {
+            //e.printStackTrace();
             alerta("No se ha podido convertir la imagen al formato Blob");
-            throw new RuntimeException(e);
         }
     }
 
