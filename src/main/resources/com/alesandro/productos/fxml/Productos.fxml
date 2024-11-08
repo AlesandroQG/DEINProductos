@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="600.0" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alesandro.productos.controller.ProductosController">
+   <children>
+      <MenuBar>
+        <menus>
+          <Menu mnemonicParsing="false" text="Ayuda">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Acerca de…" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <GridPane hgap="10.0" maxWidth="400.0" vgap="5.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="190.0" minWidth="10.0" prefWidth="136.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="256.0" minWidth="10.0" prefWidth="254.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Código del producto:" GridPane.halignment="RIGHT" />
+            <TextField fx:id="txtCodigo" maxWidth="100.0" GridPane.columnIndex="1" />
+            <Label text="Nombre:" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+            <TextField fx:id="txtNombre" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="Precio:" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+            <TextField fx:id="txtPrecio" maxWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <CheckBox fx:id="cbDisponible" mnemonicParsing="false" text="Disponible" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label text="Imagen:" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
+            <FlowPane alignment="CENTER_LEFT" columnHalignment="CENTER" hgap="50.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <children>
+                   <Button mnemonicParsing="false" onAction="#seleccionarImagen" text="Seleccionar imagen">
+                     <graphic>
+                        <FontIcon iconLiteral="far-file-image" iconSize="64" iconCode="black" />
+                     </graphic></Button>
+                  <ImageView fx:id="imagen" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </FlowPane>
+         </children>
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </VBox.margin>
+      </GridPane>
+      <FlowPane alignment="CENTER" columnHalignment="CENTER" hgap="50.0">
+         <children>
+            <Button fx:id="btnCrear" mnemonicParsing="false" onAction="#crear" text="Crear" />
+            <Button fx:id="btnActualizar" mnemonicParsing="false" onAction="#actualizar" text="Actualizar" />
+            <Button mnemonicParsing="false" onAction="#limpiar" text="Limpiar" />
+         </children>
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin>
+      </FlowPane>
+      <TableView fx:id="tabla" prefHeight="200.0" prefWidth="200.0">
+        <columns>
+          <TableColumn fx:id="colCodigo" prefWidth="149.0" text="CÓDIGO" />
+          <TableColumn fx:id="colNombre" prefWidth="164.0" text="NOMBRE" />
+            <TableColumn fx:id="colPrecio" prefWidth="119.0" text="PRECIO" />
+            <TableColumn fx:id="colDisponible" prefWidth="167.0" text="DISPONIBLE" />
+        </columns>
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" />
+         </VBox.margin>
+      </TableView>
+   </children>
+</VBox>
