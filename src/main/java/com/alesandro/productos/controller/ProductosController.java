@@ -3,15 +3,20 @@ package com.alesandro.productos.controller;
 import com.alesandro.productos.dao.DaoProducto;
 import com.alesandro.productos.model.Producto;
 import javafx.beans.property.ReadOnlyBooleanWrapper;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -20,12 +25,15 @@ import java.io.InputStream;
 import java.net.URL;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 /**
  * Clase que controla los eventos de la ventana principal
  */
 public class ProductosController implements Initializable {
+    private Blob imagenProducto;
+
     @FXML // fx:id="btnActualizar"
     private Button btnActualizar; // Value injected by FXMLLoader
 
@@ -70,6 +78,7 @@ public class ProductosController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        this.imagenProducto = null;
         // Columnas de la tabla
         colCodigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
         colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
@@ -97,6 +106,30 @@ public class ProductosController implements Initializable {
             });
             return row;
         });
+        // Añadir listener para cuando se selecciona un item de la tabla
+        tabla.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Producto>() {
+            @Override
+            public void changed(ObservableValue<? extends Producto> observableValue, Producto oldValue, Producto newValue) {
+                if (newValue != null) {
+                    txtCodigo.setText(newValue.getCodigo());
+                    txtCodigo.setEditable(false);
+                    txtNombre.setText(newValue.getNombre());
+                    txtPrecio.setText(newValue.getPrecio() + "");
+                    cbDisponible.setSelected(newValue.isDisponible());
+                    imagenProducto = newValue.getImagen();
+                    if (newValue.getImagen() != null) {
+                        try {
+                            InputStream image = newValue.getImagen().getBinaryStream();
+                            imagen.setImage(new Image(image));
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                    btnCrear.setDisable(true);
+                    btnActualizar.setDisable(false);
+                }
+            }
+        });
         // Cargar productos
         cargarTabla();
     }
@@ -114,7 +147,31 @@ public class ProductosController implements Initializable {
      * @param actionEvent
      */
     private void verImagen(ActionEvent actionEvent) {
-
+        Producto producto = tabla.getSelectionModel().getSelectedItem();
+        if (producto == null) {
+            alerta("No hay ningún producto seleccionado");
+        } else {
+            if (producto.getImagen() == null) {
+                alerta("Ese producto no tiene imagen");
+            } else {
+                try {
+                    InputStream image = producto.getImagen().getBinaryStream();
+                    VBox root = new VBox();
+                    ImageView imagen = new ImageView(new Image(image));
+                    root.getChildren().add(imagen);
+                    Scene scene = new Scene(root, 300, 300);
+                    Stage stage = new Stage();
+                    stage.setResizable(false);
+                    stage.setScene(scene);
+                    stage.setTitle("Imagen");
+                    stage.getIcons().add(new Image(getClass().getResourceAsStream("images/carrito.png")));
+                    stage.showAndWait();
+                } catch (SQLException e) {
+                    alerta("No se ha podido cargar la imagen");
+                    throw new RuntimeException(e);
+                }
+            }
+        }
     }
 
     /**
@@ -123,7 +180,25 @@ public class ProductosController implements Initializable {
      * @param actionEvent
      */
     private void eliminar(ActionEvent actionEvent) {
-
+        Producto producto = tabla.getSelectionModel().getSelectedItem();
+        if (producto == null) {
+            alerta("No hay ningún producto seleccionado");
+        } else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.initOwner(txtNombre.getScene().getWindow());
+            alert.setHeaderText(null);
+            alert.setTitle("Eliminar producto");
+            alert.setContentText("¿Estás seguro que quieres eliminar ese producto?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                if (DaoProducto.eliminar(producto)) {
+                    confirmacion("Producto eliminado correctamente");
+                    cargarTabla();
+                } else {
+                    alerta("No se ha podido eliminar ese producto");
+                }
+            }
+        }
     }
 
     /**
@@ -133,7 +208,22 @@ public class ProductosController implements Initializable {
      */
     @FXML
     void actualizar(ActionEvent event) {
-
+        String error = validar();
+        if (!error.isEmpty()) {
+            alerta(error);
+        } else {
+            Producto producto = DaoProducto.getProducto(txtCodigo.getText());
+            producto.setNombre(txtNombre.getText());
+            producto.setPrecio(Float.parseFloat(txtPrecio.getText()));
+            producto.setDisponible(cbDisponible.isSelected());
+            producto.setImagen(imagenProducto);
+            if (DaoProducto.modificar(producto)) {
+                confirmacion("Producto actualizado correctamente");
+                cargarTabla();
+            } else {
+                alerta("No se ha podido actualizar ese producto");
+            }
+        }
     }
 
     /**
@@ -143,7 +233,64 @@ public class ProductosController implements Initializable {
      */
     @FXML
     void crear(ActionEvent event) {
+        if (txtCodigo.getText().isEmpty()) {
+            alerta("El código no puede estar vacío");
+        } else {
+            Producto p = DaoProducto.getProducto(txtCodigo.getText());
+            if (p != null) {
+                alerta("Ya existe un producto con ese código");
+            } else {
+                String error = validar();
+                if (!error.isEmpty()) {
+                    alerta(error);
+                } else {
+                    Producto producto = new Producto();
+                    producto.setCodigo(txtCodigo.getText());
+                    producto.setNombre(txtNombre.getText());
+                    producto.setPrecio(Float.parseFloat(txtPrecio.getText()));
+                    producto.setDisponible(cbDisponible.isSelected());
+                    producto.setImagen(imagenProducto);
+                    if (DaoProducto.insertar(producto)) {
+                        confirmacion("Producto creado correctamente");
+                        cargarTabla();
+                    } else {
+                        alerta("No se ha podido crear ese producto");
+                    }
+                }
+            }
+        }
+    }
 
+    /**
+     * Función que valida los campos del formulario
+     *
+     * @return un string con posibles errores
+     */
+    public String validar() {
+        String error = "";
+        if (txtNombre.getText().isEmpty()) {
+            error += "El nombre no puede estar vacío\n";
+        }
+        if (txtPrecio.getText().isEmpty()) {
+            error += "El precio no puede estar vacío\n";
+        } else {
+            try {
+                Float.parseFloat(txtPrecio.getText());
+            } catch (NumberFormatException e) {
+                error += "El precio debe ser un número\n";
+            }
+        }
+        return error;
+    }
+
+    /**
+     * Función que se ejecuta cuando se pulsa el botón "Acerca de…". Muestra información sobre la aplicación
+     *
+     * @param event
+     */
+    @FXML
+    void acerca(ActionEvent event) {
+        //
     }
 
     /**
@@ -153,7 +300,16 @@ public class ProductosController implements Initializable {
      */
     @FXML
     void limpiar(ActionEvent event) {
-
+        imagenProducto = null;
+        txtCodigo.setText("");
+        txtCodigo.setEditable(true);
+        txtNombre.setText("");
+        txtPrecio.setText("");
+        cbDisponible.setSelected(false);
+        imagen.setImage(null);
+        btnCrear.setDisable(false);
+        btnActualizar.setDisable(true);
+        tabla.getSelectionModel().clearSelection();
     }
 
     /**
@@ -175,6 +331,7 @@ public class ProductosController implements Initializable {
             } else {
                 InputStream image = new FileInputStream(file);
                 Blob blob = DaoProducto.convertFileToBlob(file);
+                imagenProducto = blob;
                 imagen.setImage(new Image(image));
                 imagen.setDisable(false);
             }
@@ -182,8 +339,8 @@ public class ProductosController implements Initializable {
             //e.printStackTrace();
             System.out.println("Imagen no seleccionada");
         } catch (SQLException e) {
-            e.printStackTrace();
-            alerta("No se ha podido ");
+            alerta("No se ha podido convertir la imagen al formato Blob");
+            throw new RuntimeException(e);
         }
     }
 

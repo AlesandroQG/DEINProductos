@@ -137,15 +137,15 @@ public class DaoProducto {
      * Metodo que CREA un nuevo producto en la BD
      *
      * @param producto		Instancia del modelo producto con datos nuevos
-     * @return			id/-1
+     * @return			true/false
      */
-    public  static int insertar(Producto producto) {
+    public static boolean insertar(Producto producto) {
         DBConnect connection;
         PreparedStatement pstmt;
         try {
             connection = new DBConnect();
             String consulta = "INSERT INTO productos (codigo,nombre,precio,disponible,imagen) VALUES (?,?,?,?,?) ";
-            pstmt = connection.getConnection().prepareStatement(consulta, PreparedStatement.RETURN_GENERATED_KEYS);
+            pstmt = connection.getConnection().prepareStatement(consulta);
             pstmt.setString(1, producto.getCodigo());
             pstmt.setString(2, producto.getNombre());
             pstmt.setFloat(3, producto.getPrecio());
@@ -153,21 +153,12 @@ public class DaoProducto {
             pstmt.setBlob(5, producto.getImagen());
             int filasAfectadas = pstmt.executeUpdate();
             System.out.println("Nueva entrada en producto");
-            if (filasAfectadas > 0) {
-                ResultSet rs = pstmt.getGeneratedKeys();
-                if (rs.next()) {
-                    int id = rs.getInt(1);
-                    pstmt.close();
-                    connection.closeConnection();
-                    return id;
-                }
-            }
             pstmt.close();
             connection.closeConnection();
-            return -1;
+            return filasAfectadas > 0;
         } catch (SQLException e) {
             System.err.println(e.getMessage());
-            return -1;
+            return false;
         }
     }
 
